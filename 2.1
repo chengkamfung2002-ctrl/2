@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NexBiz | 现代化智能商业策略中心</title>
+    <style>
+        :root {
+            --bg-base: #f8fafc;
+            --bg-surface: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --success: #10b981;
+            --border: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --radius: 12px;
+        }
+
+        [data-theme="dark"] {
+            --bg-base: #0f172a;
+            --bg-surface: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --primary: #3b82f6;
+            --primary-hover: #2563eb;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, sans-serif;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        /* 顶部导航栏 */
+        header {
+            background-color: var(--bg-surface);
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -0.5px;
+        }
+
+        nav a {
+            color: var(--text-main);
+            text-decoration: none;
+            margin-left: 1.5rem;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        .theme-btn {
+            background: var(--bg-base);
+            border: 1px solid var(--border);
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            margin-left: 1.5rem;
+        }
+
+        /* 巨幕主页区 (Hero Section) */
+        .hero {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            font-weight: 800;
+        }
+
+        .hero-text p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        /* 服务矩阵板块 */
+        .services-section {
+            background-color: var(--bg-surface);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto 3rem auto;
+        }
+
+        .section-title h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .grid-3 {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .card {
+            background-color: var(--bg-base);
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .card h3 {
+            margin: 1rem 0 0.5rem 0;
+            font-size: 1.25rem;
+        }
+
+        /* 商业交互计算器核心组件 */
+        .calculator-section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 5rem 2rem;
+        }
+
+        .calc-wrapper {
+            background-color: var(--bg-surface);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        .calc-results {
+            background-color: var(--bg-base);
+            border-radius: 8px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .result-item {
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.75rem;
+        }
+
+        .result-item:last-child {
+            border-bottom: none;
+        }
+
+        .result-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .result-value {
+            font-size: 1.75rem;
+            font-weight: 800;
+            color: var(--primary);
+        }
+
+        /* 按钮通用组件 */
+        .btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            .hero, .calc-wrapper {
+                grid-template-columns: 1fr;
+                padding: 2rem 1rem;
+            }
+            nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <div class="logo">⚡ NexBiz</div>
+            <nav>
+                <a href="#services">核心服务</a>
+                <a href="#calculator">商业计算器</a>
+                <button class="theme-btn" onclick="toggleTheme()">🌗</button>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>用数据驱动 商业决策的未来</h1>
+            <p>通过部署前沿的数据分析系统与精益管理策略，我们帮助中小企业与高校课堂打破数据孤岛，实现业务的高效爆发与智能化模型分析。</p>
+            <a href="#calculator" class="btn">立即体验商业计算器</a>
+        </div>
+        <div style="background: linear-gradient(135deg, var(--primary), #ec4899); height: 350px; border-radius: var(--radius); opacity: 0.85; display: flex; align-items: center; justify-content: center; color: white; font-size: 4rem;">📊</div>
+    </section>
+
+    <section class="services-section" id="services">
+        <div class="section-title">
+            <h2>全方位的商业解决方案</h2>
+            <p style="color: var(--text-muted)">通过三大支柱服务，让你的学生全景式掌握当代商业运转的底层逻辑。</p>
+        </div>
+        <div class="grid-3">
+            <div class="card">
+                <span style="font-size: 2.5rem;">📈</span>
+                <h3>市场策略咨询</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">提供宏观行业洞察、竞品动态追踪以及全渠道用户触达策略分析。</p>
+            </div>
+            <div class="card">
+                <span style="font-size: 2.5rem;">🤖</span>
+                <h3>数字化转型</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">定制自动化业务流程，用云端架构取代繁琐的传统手工表格。</p>
+            </div>
+            <div class="card">
+                <span style="font-size: 2.5rem;">💼</span>
+                <h3>资本效率优化</h3>
+                <p style="color: var(--text-muted); margin-top: 0.5rem;">科学诊断企业的资产负债表，提升现金流的周转效能与运营利润率。</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="calculator-section" id="calculator">
+        <div class="section-title">
+            <h2>📊 实战：实时商业财务模拟器</h2>
+            <p style="color: var(--text-muted)">学生可以直接在下方输入预估的商业指标，系统将通过 JavaScript 动态计算核心财务成果。</p>
+        </div>
+        <div class="calc-wrapper">
+            <div>
+                <div class="input-group">
+                    <label for="revenue">预期总营业收入 (元)</label>
+                    <input type="number" id="revenue" value="100000" oninput="calculateBusinessMetrics()">
+                </div>
+                <div class="input-group">
+                    <label for="costs">商品与运营总成本 (元)</label>
+                    <input type="number" id="costs" value="60000" oninput="calculateBusinessMetrics()">
+                </div>
+                <div class="input-group">
+                    <label for="marketing">市场营销专项投入 (元)</label>
+                    <input type="number" id="marketing" value="15000" oninput="calculateBusinessMetrics()">
+                </div>
+            </div>
+            <div class="calc-results">
+                <div class="result-item">
+                    <div class="result-label">净利润 (Net Profit)</div>
+                    <div class="result-value" id="net-profit">¥25,000</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">纯利润率 (Profit Margin)</div>
+                    <div class="result-value" id="margin-pct" style="color: var(--success);">25.0%</div>
+                </div>
+                <div class="result-item">
+                    <div class="result-label">营销投资回报率 (ROI)</div>
+                    <div class="result-value" id="roi-ratio">1.67 倍</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // 商业数据算法核心
+        function calculateBusinessMetrics() {
+            const revenue = parseFloat(document.getElementById('revenue').value) || 0;
+            const costs = parseFloat(document.getElementById('costs').value) || 0;
+            const marketing = parseFloat(document.getElementById('marketing').value) || 0;
+
+            // 计算净利润
+            const netProfit = revenue - costs - marketing;
+            
+            // 计算纯利润率
+            const marginPct = revenue > 0 ? ((netProfit / revenue) * 100).toFixed(1) : 0;
+            
+            // 计算营销回报率
+            const roi = marketing > 0 ? (netProfit / marketing).toFixed(2) : 0;
+
+            // 动态反馈至UI界面
+            document.getElementById('net-profit').innerText = '¥' + netProfit.toLocaleString();
+            document.getElementById('margin-pct').innerText = marginPct + '%';
+            document.getElementById('roi-ratio').innerText = roi + ' 倍';
+
+            // 根据正负利润调整数字呈现颜色
+            if (netProfit < 0) {
+                document.getElementById('margin-pct').style.color = '#ef4444';
+            } else {
+                document.getElementById('margin-pct').style.color = 'var(--success)';
+            }
+        }
+
+        // 白天与黑夜现代主题引擎切换
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute('data-theme');
+            if (currentTheme === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+            }
+        }
+    </script>
+</body>
+</html>
